@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto mb-4">
         <div class="overflow-x-auto">
             <h1 class="bg-blue-500 text-white text-center py-4 mb-4 mt-4">Books E-commerce - Products</h1>
             <table class="table-auto w-full bg-white border border-gray-200">
@@ -14,7 +14,7 @@
                         <th class="px-2 py-2">ID</th>
                         <th class="px-2 py-2">Name</th>
                         <th class="px-2 py-2">Description</th>
-                        <th class="px-2 py-2">image</th>
+                        <th class="px-2 py-2">Image</th>
                         <th class="px-2 py-2">Author</th>
                         <th class="px-2 py-2">Editorial</th>
                         <th class="px-2 py-2">Year</th>
@@ -34,8 +34,12 @@
                             <td class="px-2 py-2">{{ $product->name }}</td>
                             <td class="px-2 py-2">{{ $product->description }}</td>
                             <td class="px-2 py-2">
-                                <img src="{{ asset('storage/' . $product->image) }}"
-                                    alt="Product Image">
+                                @if (Str::startsWith($product->image, 'images/books/'))
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                        class="mb-4 rounded-md">
+                                @else
+                                    <img src="{{ $product->image }}" alt="{{ $product->name }}" class="mb-4 rounded-md">
+                                @endif
                             </td>
 
                             <td class="px-2 py-2">{{ $product->author }}</td>

@@ -35,16 +35,16 @@ class CategoryRequest extends FormRequest
      * @return array<string, string>
      */
     public function messages(): array
-    {
-        return [
-            'name.required' => 'Debe colocar un nombre a la categoría',
-            'name.max' => 'El nombre de la categoría no puede superar los 255 caracteres',
-            'description.required' => 'Debe colocar una descripción a la categoría',
-            'description.max' => 'La descripción de la categoría no puede superar los 500 caracteres',
-            'priority.required' => 'Debe colocar una prioridad a la categoría',
-            'priority.integer' => 'La prioridad de la categoría debe ser un número entero',
-            'priority.min' => 'La prioridad de la categoría debe ser mayor o igual a 0',
-            'priority.max' => 'La prioridad de la categoría debe ser menor o igual a 10'
-        ];
-    }
+{
+    return [
+        'name.required' => 'You must provide a name for the category',
+        'name.max' => 'The category name cannot exceed 255 characters',
+        'description.required' => 'You must provide a description for the category',
+        'description.max' => 'The category description cannot exceed 500 characters',
+        'priority.required' => 'You must provide a priority for the category',
+        'priority.integer' => 'The category priority must be an integer',
+        'priority.min' => 'The category priority must be greater than or equal to 0',
+        'priority.max' => 'The category priority must be less than or equal to 10',
+    ];
+}
 }

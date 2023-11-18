@@ -38,12 +38,12 @@
                     @endif
 
                     <div class="col-span-12 my-4 text-center">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Edit</button>
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Edit</button>
                     </div>
                 </form>
             </div>
             <div class="col-span-12 mb-4 text-center">
-                <a href="{{ route('categories.index') }}" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded no-underline">Back</a>
+                <a href="{{ route('categories.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded no-underline">Back</a>
             </div>
         </div>
     </div>

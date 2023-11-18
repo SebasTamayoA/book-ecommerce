@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,19 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+Route::resource(
+    'users',
+    App\Http\Controllers\UserController::class
+)->middleware('admin_auth');
 
 Route::resource(
     'categories',
     App\Http\Controllers\CategoryController::class
-)->middleware('auth');
+)->middleware('admin_auth');
 
 Route::resource(
     'products',
     App\Http\Controllers\ProductController::class
-)->middleware('auth');
+)->middleware('admin_auth');
 
 Route::middleware([
     'auth:sanctum',
@@ -36,3 +43,26 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::put('/users/{user}/update-profile', [UserController::class, 'updateProfile'])->name('users.update-profile');
+Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.update-password');
+
+
+// Route::middleware('auth')->get('/users', Livewire::component('admin.users.index'));
+// Route::middleware('auth')->get('/categories', Livewire::component('admin.categories.index'));
+// Route::middleware('auth')->get('/products', Livewire::component('admin.products.index'));
+
+
+// Aplicar el middleware 'auth' a la ruta '/register'
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/register', function () {
+//         return view('auth.register');
+//     });
+// });
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+//     Route::post('/register', [RegisteredUserController::class, 'store'])
+//         ->middleware(['guest']) // Asegurarse de que el usuario esté autenticado
+//         ->name('register');
+// });

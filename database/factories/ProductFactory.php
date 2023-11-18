@@ -14,18 +14,19 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'description' => $this->faker->text(),
-            'image' => $this->faker->imageUrl(),
-            'author' => $this->faker->name(),
-            'editorial' => $this->faker->name(),
-            'year' => $this->faker->year(),
-            'language' => $this->faker->languageCode(),
+            'name' => $this->faker->name,
+            'description' => $this->faker->text,
+            'image' => $this->faker->imageUrl(300, 400),
+            'author' => $this->faker->name,
+            'editorial' => $this->faker->name,
+            'year' => $this->faker->year,
+            'language' => $this->faker->languageCode,
             'stock' => $this->faker->numberBetween(0, 100),
-            'price' => $this->faker->randomFloat(2, 0, 1000),
+            'price' => $this->faker->randomFloat(2, 0, 100),
+            'category_id' => $this->faker->numberBetween(1, 2),
         ];
     }
 }

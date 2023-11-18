@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('products.index', [
-            'products' => Product::all()
+            'products' => Product::all(),
         ]);
     }
 
@@ -74,7 +74,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return view('products.show', [
-            'Product' => $product
+            'product' => $product,
         ]);
     }
 
@@ -84,7 +84,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return view('products.edit', [
-            'Product' => $product
+            'product' => $product,
+            'categories' => Category::all(),
         ]);
     }
 
@@ -93,7 +94,33 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        // Validar y almacenar la nueva imagen si se proporciona
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            // Obtener el archivo de la solicitud
+            $image = $request->file('image');
+
+            // Generar un nombre único para la imagen
+            $imageName = time() . '.' . $image->extension();
+
+            // Almacenar la nueva imagen en la carpeta "images/books" dentro del disco público
+            $imagePath = $image->storeAs('images/books', $imageName, 'public');
+
+            // Eliminar la antigua imagen asociada al producto
+            if (Storage::disk('public')->exists($product->image)) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            // Actualizar el campo de la imagen en la base de datos
+            $product->update(['image' => $imagePath]);
+        }
+
+        // Actualizar los demás campos del producto
+        $product->update($request->except('image'));
+
         return redirect('/products');
     }
 
