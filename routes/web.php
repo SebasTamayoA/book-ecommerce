@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShoppingCartController;
 
 
 /*
@@ -17,6 +18,14 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::resource(
+    'shopping_carts',
+    App\Http\Controllers\UserController::class
+);
+
+// Ruta para agregar al carrito
+Route::post('/cart/add/{product}', [ShoppingCartController::class, 'addToCart'])->name('cart.add');
 
 
 Route::resource(
@@ -34,6 +43,8 @@ Route::resource(
     App\Http\Controllers\ProductController::class
 )->middleware('admin_auth');
 
+Route::get('/products/{slug}', 'ProductController@show')->name('products.show');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -47,22 +58,9 @@ Route::middleware([
 Route::put('/users/{user}/update-profile', [UserController::class, 'updateProfile'])->name('users.update-profile');
 Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.update-password');
 
-
-// Route::middleware('auth')->get('/users', Livewire::component('admin.users.index'));
-// Route::middleware('auth')->get('/categories', Livewire::component('admin.categories.index'));
-// Route::middleware('auth')->get('/products', Livewire::component('admin.products.index'));
-
-
-// Aplicar el middleware 'auth' a la ruta '/register'
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/register', function () {
-//         return view('auth.register');
-//     });
-// });
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-//     Route::post('/register', [RegisteredUserController::class, 'store'])
-//         ->middleware(['guest']) // Asegurarse de que el usuario esté autenticado
-//         ->name('register');
-// });
+//Aplicar el middleware 'auth' a la ruta '/register'
+Route::middleware(['auth'])->group(function () {
+    Route::get('/register', function () {
+        return view('dashboard');
+    });
+});

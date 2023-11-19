@@ -7,7 +7,8 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CreateProductMail;
 
 class ProductController extends Controller
 {
@@ -51,7 +52,7 @@ class ProductController extends Controller
         $imagePath = $image->storeAs('images/books', $imageName, 'public');
 
         // Crear el producto con la información, incluyendo la ruta de la imagen
-        Product::create([
+        $product = Product::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'image' =>  $imagePath,
@@ -62,8 +63,11 @@ class ProductController extends Controller
             'stock' => $request->input('stock'),
             'price' => $request->input('price'),
             'category_id' => $request->input('category_id'),
-            // Otros campos del producto...
         ]);
+
+        // Envío de correo cada vez que se crea un producto
+        Mail::to($request->user())->send(new CreateProductMail($product));
+
 
         return redirect('/products');
     }
@@ -71,11 +75,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($slug)
     {
-        return view('products.show', [
-            'product' => $product,
-        ]);
+        $product = Product::where('slug', $slug)->firstOrFail();
+        return view('products.show', compact('product'));
     }
 
     /**

@@ -2,26 +2,26 @@
 
 namespace App\Mail;
 
-use App\Models\Cow;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Product;
 
-class CreateCowMail extends Mailable
+class CreateProductMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $cow;
+    private $product;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Cow $cow)
+    public function __construct(Product $product)
     {
-        $this->cow = $cow;
+        $this->product = $product;
     }
 
     /**
@@ -30,7 +30,7 @@ class CreateCowMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Create Cow Mail',
+            subject: 'Create Product Mail',
         );
     }
 
@@ -39,9 +39,9 @@ class CreateCowMail extends Mailable
      */
     public function build()
     {
-        return $this->view( 'mail.createCow',
+        return $this->view( 'mail.createProduct',
             [
-                'cow' => $this->cow,
+                'product' => $this->product,
             ],
         );
     }

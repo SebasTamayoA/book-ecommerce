@@ -50,7 +50,7 @@
                             <td class="px-2 py-2">{{ $product->price }}</td>
                             <td class="px-2 py-2">{{ $product->category->name }}</td>
                             <td class="px-2 py-2">
-                                <a href="{{ route('products.show', $product) }}"
+                                <a href="{{ route('products.show', $product->slug) }}"
                                     class="bg-blue-500 text-white px-2 py-2 rounded">
                                     <i class="fas fa-eye"></i>
                                 </a>
