@@ -5,6 +5,17 @@
             <div class="col-span-12">
                 <h1 class="bg-blue-500 text-white text-center py-4">Books E-commerce - categories</h1>
             </div>
+
+            @if ($errors->any())
+                <div class="bg-red-500 text-white col-span-12 mt-4 p-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="col-span-12">
                 <table class="table-auto w-full bg-white border border-gray-200">
                     <thead>
@@ -19,31 +30,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <tr>
-                                <td class="px-4 py-2">{{$category->id}}</td>
-                                <td class="px-4 py-2">{{$category->name}}</td>
-                                <td class="px-4 py-2">{{$category->description}}</td>
-                                <td class="px-4 py-2">{{$category->priority}}</td>
+                                <td class="px-4 py-2">{{ $category->id }}</td>
+                                <td class="px-4 py-2">{{ $category->name }}</td>
+                                <td class="px-4 py-2">{{ $category->description }}</td>
+                                <td class="px-4 py-2">{{ $category->priority }}</td>
                                 <td class="px-4 py-2">
-                                    <a href="{{route('categories.show', $category)}}" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                    <a href="{{ route('categories.show', $category) }}"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
                                 <td class="px-4 py-2">
-                                    <a href="{{route('categories.edit', $category)}}" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">
+                                    <a href="{{ route('categories.edit', $category) }}"
+                                        class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">
                                         <i class="fas fa-pen-to-square"></i>
                                     </a>
                                 </td>
                                 <td class="px-4 py-2">
-                                    <form
-                                        action="{{route('categories.destroy', $category)}}"
-                                        method="post"
-                                        onsubmit="return confirm('Are you sure?')"
-                                    >
+                                    <form action="{{ route('categories.destroy', $category) }}" method="post"
+                                        onsubmit="return confirm('Are you sure?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -54,7 +65,8 @@
                 </table>
             </div>
             <div class="col-span-12 mt-4 text-center">
-                <a href="/categories/create" class="bg-purple-500 hover:bg-purple-700 text-white px-4 py-2 rounded no-underline">Add category</a>
+                <a href="/categories/create"
+                    class="bg-purple-500 hover:bg-purple-700 text-white px-4 py-2 rounded no-underline">Add category</a>
             </div>
         </div>
     </div>
