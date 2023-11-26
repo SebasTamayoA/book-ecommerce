@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Actions\Fortify\UpdateUserPassword;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
