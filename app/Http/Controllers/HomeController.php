@@ -12,24 +12,26 @@ class HomeController extends Controller
      * Show the home page with filtered products.
      */
     public function index(Request $request)
-    {
-        $query = $request->input('query');
-        $categoryId = $request->input('category');
+{
+    $query = $request->input('query');
+    $categoryId = $request->input('category');
 
-        $productsQuery = Product::query();
+    $productsQuery = Product::query();
 
-        if ($query) {
-            $productsQuery->where('name', 'like', '%' . $query . '%')
-                          ->orWhere('description', 'like', '%' . $query . '%');
-        }
-
-        if ($categoryId) {
-            $productsQuery->where('category_id', $categoryId);
-        }
-
-        $products = $productsQuery->get();
-        $categories = Category::all();
-
-        return view('home', compact('products', 'categories'));
+    if ($query) {
+        $productsQuery->where('name', 'like', '%' . $query . '%')
+                      ->orWhere('description', 'like', '%' . $query . '%');
     }
+
+    if ($categoryId) {
+        $productsQuery->where('category_id', $categoryId);
+    }
+
+    // Agregar paginación con 12 elementos por página
+    $products = $productsQuery->paginate(12);
+    $categories = Category::all();
+
+    return view('home', compact('products', 'categories'));
+}
+
 }

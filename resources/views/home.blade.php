@@ -61,6 +61,9 @@
             @endforeach
         </div>
 
+        <!-- Agregar enlaces de paginación -->
+        {{ $products->links() }}
+
     </div>
 
     {{-- <x-footer /> --}}
