@@ -26,12 +26,12 @@
                                 <td class="px-4 py-2">{{$user->email}}</td>
                                 <td class="px-4 py-2">{{$user->is_admin ? 'Yes' : 'No'}}</td>
                                 <td class="px-4 py-2">
-                                    <a href="{{route('users.show', $user)}}" class="bg-blue-500 text-white px-4 py-2 rounded">
+                                    <a href="{{route('users.show', $user)}}" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
                                 <td class="px-4 py-2">
-                                    <a href="{{route('users.edit', $user)}}" class="bg-green-500 text-white px-4 py-2 rounded">
+                                    <a href="{{route('users.edit', $user)}}" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">
                                         <i class="fas fa-pen-to-square"></i>
                                     </a>
                                 </td>
@@ -43,7 +43,7 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -54,7 +54,7 @@
                 </table>
             </div>
             <div class="col-span-12 mt-4 text-center">
-                <a href="/users/create" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded no-underline">Add user</a>
+                <a href="/users/create" class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded no-underline">Add user</a>
             </div>
         </div>
     </div>

@@ -26,12 +26,12 @@
                                 <td class="px-4 py-2">{{$category->description}}</td>
                                 <td class="px-4 py-2">{{$category->priority}}</td>
                                 <td class="px-4 py-2">
-                                    <a href="{{route('categories.show', $category)}}" class="bg-blue-500 text-white px-4 py-2 rounded">
+                                    <a href="{{route('categories.show', $category)}}" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
                                 <td class="px-4 py-2">
-                                    <a href="{{route('categories.edit', $category)}}" class="bg-green-500 text-white px-4 py-2 rounded">
+                                    <a href="{{route('categories.edit', $category)}}" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">
                                         <i class="fas fa-pen-to-square"></i>
                                     </a>
                                 </td>
@@ -43,7 +43,7 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -54,7 +54,7 @@
                 </table>
             </div>
             <div class="col-span-12 mt-4 text-center">
-                <a href="/categories/create" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded no-underline">Add category</a>
+                <a href="/categories/create" class="bg-purple-500 hover:bg-purple-700 text-white px-4 py-2 rounded no-underline">Add category</a>
             </div>
         </div>
     </div>

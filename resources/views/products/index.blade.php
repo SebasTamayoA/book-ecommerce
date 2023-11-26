@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="container mx-auto mb-4">
+    <div class="container mx-auto">
         <div class="overflow-x-auto">
             <h1 class="bg-blue-500 text-white text-center py-4 mb-4 mt-4">Books E-commerce - Products</h1>
             <table class="table-auto w-full bg-white border border-gray-200">
@@ -46,13 +46,13 @@
                             <td class="px-2 py-2">{{ $product->category->name }}</td>
                             <td class="px-2 py-2">
                                 <a href="{{ route('products.show', $product->slug) }}"
-                                    class="bg-blue-500 text-white px-2 py-2 rounded">
+                                    class="bg-blue-500 hover:bg-blue-700 text-white px-2 py-2 rounded">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </td>
                             <td class="px-2 py-2">
                                 <a href="{{ route('products.edit', $product) }}"
-                                    class="bg-green-500 text-white px-2 py-2 rounded">
+                                    class="bg-green-500 hover:bg-green-700 text-white px-2 py-2 rounded">
                                     <i class="fas fa-pen-to-square"></i>
                                 </a>
                             </td>
@@ -61,7 +61,7 @@
                                     onsubmit="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-2 py-2 rounded">
+                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-2 py-2 rounded">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -73,7 +73,8 @@
         </div>
         <div class="mt-4 text-center">
             <a href="/products/create"
-                class="bg-green-500 hover:bg-green-700 text-white px-2 py-2 rounded no-underline">Add product</a>
+                class="bg-yellow-500 hover:bg-yellow-700 text-white px-2 py-2 rounded no-underline">Add product</a>
         </div>
     </div>
+    <br>
 </x-app-layout>
