@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+
+use App\Http\Requests\UserRequestCreate;
+use App\Http\Requests\UserRequestUpdate;
 use App\Models\User;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\UpdateUserProfileInformation;
@@ -44,7 +45,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(UserRequestCreate $request)
     {
         $createNewUser = new CreateNewUser();
         $createNewUser->create($request->all());
@@ -74,27 +75,18 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user)
+
+    public function updateProfile(UserRequestUpdate $request, User $user)
     {
         // Actualizar la información del perfil
-        $this->updateUserProfileInformation->update($user, $request->only('name', 'email', 'is_admin'));
+        $this->updateUserProfileInformation->update($user, $request->only('name', 'email'));
 
-        // Actualizar la contraseña si se proporciona
-        if ($request->filled('password')) {
-            $this->validate($request, [
-                'current_password' => 'required|string',
-                'password' => 'required|string|min:8|confirmed',
-            ]);
+        return redirect('/users');
+    }
 
-            // Verificar la contraseña actual
-            if (!Hash::check($request->input('current_password'), $user->password)) {
-                return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.']);
-            }
-
-            // Actualizar la contraseña
-            $user->password = Hash::make($request->input('password'));
-            $user->save();
-        }
+    public function updatePassword(UserRequestUpdate $request, User $user)
+    {
+        $this->updateUserPassword->update($user, $request->all());
 
         return redirect('/users');
     }

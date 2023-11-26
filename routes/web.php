@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\UserController;
 
 
 /*

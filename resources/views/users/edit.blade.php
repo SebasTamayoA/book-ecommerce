@@ -1,9 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('users') }}
-        </h2>
-    </x-slot>
 
     <div class="container mx-auto">
         <div class="grid grid-cols-12 gap-4 mt-8">
@@ -11,7 +6,7 @@
                 <h1 class="bg-blue-500 text-white text-center py-4">Edit User {{ $user->name }}</h1>
             </div>
             <div class="col-span-12">
-                <form action="{{ route('users.update', $user) }}" method="post" class="grid grid-cols-6 gap-4">
+                <form action="{{ route('users.update-profile', $user) }}" method="post" class="grid grid-cols-6 gap-4">
                     @csrf
                     @method('PUT')
                     <!-- Campos de información del perfil -->
@@ -31,7 +26,29 @@
                             value="1" {{ old('is_admin', $user->is_admin) ? 'checked' : '' }}>
                     </div>
 
-                    <!-- Campos de contraseña -->
+                    <!-- Mensajes de error -->
+                    @if ($errors->any())
+                        <div class="bg-red-500 text-white col-span-12 mt-4 p-4">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Botón de enviar -->
+                    <div class="col-span-12 my-4 text-center">
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Edit name and email</button>
+                    </div>
+                </form>
+
+                <!-- Campos de contraseña -->
+                <form action="{{ route('users.update-password', $user) }}" method="post" class="grid grid-cols-6 gap-4">
+                    @csrf
+                    @method('PUT')
+
                     <!-- curent password -->
                     <div class="col-span-12">
                         <label for="current_password" class="text-lg text-gray-800">Current password</label>
@@ -63,7 +80,7 @@
                     <!-- Botón de enviar -->
                     <div class="col-span-12 my-4 text-center">
                         <button type="submit"
-                            class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Edit</button>
+                            class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">Edit Password</button>
                     </div>
                 </form>
             </div>
